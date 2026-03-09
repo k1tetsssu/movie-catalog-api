@@ -3,6 +3,8 @@ package com.moviesCatalog.movie_catalog_api.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "actors")
 @Data
@@ -20,4 +22,7 @@ public class Actor {
 
     @Column(nullable = false, name = "birthYear")
     private Integer birthYear;
+
+    @ManyToMany(mappedBy = "actors")
+    private List<Movie> movies;
 }
