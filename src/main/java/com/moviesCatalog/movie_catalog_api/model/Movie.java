@@ -3,6 +3,8 @@ package com.moviesCatalog.movie_catalog_api.model;
 import jakarta.persistence.*; // библиотека для работы с базой данных через Java
 import lombok.*;
 
+import java.util.List;
+
 @Entity // Этот класс является сущностью базы данных
 @Table(name = "movies")
 @Data
@@ -31,4 +33,12 @@ public class Movie {
     @ManyToOne // много фильмов - один режиссер
     @JoinColumn(name = "director_id") // // в таблице movies будет колонка director
     private Director director;
+
+    @ManyToMany
+    @JoinTable(
+            name = "movie_actors",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    private List<Actor> actors;
 }
