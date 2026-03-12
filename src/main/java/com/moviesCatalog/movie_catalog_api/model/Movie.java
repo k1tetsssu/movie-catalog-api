@@ -1,5 +1,6 @@
 package com.moviesCatalog.movie_catalog_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*; // библиотека для работы с базой данных через Java
 import lombok.*;
 

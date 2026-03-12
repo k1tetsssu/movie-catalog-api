@@ -27,6 +27,19 @@ public class MovieService {
         return movieRepository.save(movie);
     } // INSERT INTO movies ...
 
+
+    public Movie updateMovie(Long id, Movie updatedMovie) {
+
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Movie not found"));
+
+        movie.setTitle(updatedMovie.getTitle());
+        movie.setReleaseYear(updatedMovie.getReleaseYear());
+        movie.setRating(updatedMovie.getRating());
+
+        return movieRepository.save(movie);
+    }
+
     public void deleteMovie(Long id) {
 
         movieRepository.deleteById(id);
