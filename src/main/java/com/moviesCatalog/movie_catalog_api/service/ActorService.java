@@ -27,6 +27,17 @@ public class ActorService {
         return actorRepository.save(actor);
     }
 
+    public Actor updateActor(Long id, Actor updatedActor) {
+
+        Actor actor = actorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Actor not found"));
+
+        actor.setName(updatedActor.getName());
+        actor.setBirthYear(updatedActor.getBirthYear());
+
+        return actorRepository.save(actor);
+    }
+
     public void deleteActor(Long id) {
         actorRepository.deleteById(id);
     }

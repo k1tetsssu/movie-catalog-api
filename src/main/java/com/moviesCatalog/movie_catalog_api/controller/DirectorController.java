@@ -31,16 +31,9 @@ public class DirectorController {
         return directorService.saveDirector(director);
     }
 
-    @PutMapping("/{id}") // ОБНОВЛЕНИЕ РЕЖИССЕРА
-    public Director updateDirector(@PathVariable Long id, @RequestBody Director directorDetails) {
-        Director director = directorService.getDirectorById(id);
-        if (director != null) {
-            director.setName(directorDetails.getName());
-            director.setBirthYear(directorDetails.getBirthYear());
-            return directorService.saveDirector(director);
-        } else {
-            return null;
-        }
+    @PutMapping("/{id}")
+    public Director updateDirector(@PathVariable Long id, @RequestBody Director director) {
+        return directorService.updateDirector(id, director);
     }
 
     @DeleteMapping("/{id}")

@@ -31,16 +31,9 @@ public class ActorController {
         return actorService.saveActor(actor);
     }
 
-    @PutMapping("/{id}") // ОБНОВЛЕНИЕ АКТЕРА
-    public Actor updateActor(@PathVariable Long id, @RequestBody Actor actorDetails) {
-        Actor actor = actorService.getActorById(id);
-        if (actor != null) {
-            actor.setName(actorDetails.getName());
-            actor.setBirthYear(actorDetails.getBirthYear());
-            return actorService.saveActor(actor);
-        } else {
-            return null; // можно возвращать 404 через ResponseEntity
-        }
+    @PutMapping("/{id}")
+    public Actor updateActor(@PathVariable Long id, @RequestBody Actor actor) {
+        return actorService.updateActor(id, actor);
     }
 
     @DeleteMapping("/{id}")

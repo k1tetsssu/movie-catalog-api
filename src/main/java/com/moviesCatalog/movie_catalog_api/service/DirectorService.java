@@ -27,6 +27,17 @@ public class DirectorService {
         return directorRepository.save(director);
     }
 
+    public Director updateDirector(Long id, Director updatedDirector) {
+
+        Director director = directorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Director not found"));
+
+        director.setName(updatedDirector.getName());
+        director.setBirthYear(updatedDirector.getBirthYear());
+
+        return directorRepository.save(director);
+    }
+
     public void deleteDirector(Long id) {
         directorRepository.deleteById(id);
     }
