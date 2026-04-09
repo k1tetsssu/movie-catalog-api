@@ -9,6 +9,15 @@ import com.moviesCatalog.movie_catalog_api.exception.MovieException.MovieNotFoun
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+// Actor
+import com.moviesCatalog.movie_catalog_api.exception.ActorException.ActorNotFoundException;
+import com.moviesCatalog.movie_catalog_api.exception.ActorException.InvalidActorDataException;
+import com.moviesCatalog.movie_catalog_api.exception.ActorException.DuplicateActorException;
+// Director
+import com.moviesCatalog.movie_catalog_api.exception.DirectorException.DirectorNotFoundException;
+import com.moviesCatalog.movie_catalog_api.exception.DirectorException.InvalidDirectorDataException;
+import com.moviesCatalog.movie_catalog_api.exception.DirectorException.DuplicateDirectorException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -85,6 +94,69 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(409).body(error);
     }
+
+    // Actor
+    @ExceptionHandler(ActorNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleActorNotFound(ActorNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                404,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(404).body(error);
+    }
+
+    @ExceptionHandler(InvalidActorDataException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidActorData(InvalidActorDataException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                400,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(400).body(error);
+    }
+
+    @ExceptionHandler(DuplicateActorException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateActor(DuplicateActorException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                409,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(409).body(error);
+    }
+
+    // Director
+    @ExceptionHandler(DirectorNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleDirectorNotFound(DirectorNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                404,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(404).body(error);
+    }
+
+    @ExceptionHandler(InvalidDirectorDataException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidDirectorData(InvalidDirectorDataException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                400,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(400).body(error);
+    }
+
+    @ExceptionHandler(DuplicateDirectorException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateDirector(DuplicateDirectorException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                409,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(409).body(error);
+    }
+
     // Global
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAll(Exception ex) {
@@ -99,3 +171,5 @@ public class GlobalExceptionHandler {
     }
 
 }
+
+
