@@ -2,10 +2,12 @@ package com.moviesCatalog.movie_catalog_api.controller;
 
 import com.moviesCatalog.movie_catalog_api.model.Movie;
 import com.moviesCatalog.movie_catalog_api.service.MovieService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@AllArgsConstructor
 @RestController // это REST API контроллер, Он автоматически возвращает JSON.
 @RequestMapping("/movies") // Базовый URL. Все методы будут начинаться с "/movies"
 
@@ -14,33 +16,31 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
-
     @GetMapping // Получить все фильмы
-    public List<Movie> getAllMovies() {
-        return movieService.getAllMovies();
+    public ResponseEntity<List<Movie>> getAllMovies() {
+        return ResponseEntity.ok(movieService.getAllMovies());
     }
 
     @GetMapping("/{id}") // Получить фильм по ID
-    public Movie getMovieById(@PathVariable Long id) {
-        return movieService.getMovieById(id);
+    public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
+        return ResponseEntity.ok(movieService.getMovieById(id));
     }
 
     @PostMapping // Создать фильм
-    public Movie createMovie(@RequestBody Movie movie) {
-        return movieService.saveMovie(movie);
+    public ResponseEntity<Movie> createMovie(@RequestBody Movie movie) {
+        Movie savedMovie = movieService.saveMovie(movie);
+        return ResponseEntity.status(201).body(savedMovie);
     }
 
     @PutMapping("/{id}")
-    public Movie updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
-        return movieService.updateMovie(id, movie);
+    public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movie) {
+        return ResponseEntity.ok(movieService.updateMovie(id, movie));
     }
 
     @DeleteMapping("/{id}") // Удалить фильм
-    public void deleteMovie(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMovie(@PathVariable Long id) {
         movieService.deleteMovie(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
