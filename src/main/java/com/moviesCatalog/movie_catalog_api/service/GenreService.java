@@ -52,6 +52,23 @@ public class GenreService {
         return genreRepository.save(genre);
     }
 
+    public Genre patchGenre(Long id, Genre updatedGenre) {
+
+        Genre genre = genreRepository.findById(id)
+                .orElseThrow(() -> new GenreNotFoundException(id));
+
+        if (updatedGenre.getName() != null) {
+            genre.setName(updatedGenre.getName());
+        }
+        if (genre.getName() == null || genre.getName().isEmpty()) {
+            throw new InvalidMovieDataException("Название Жанра не может быть пустым");
+        }
+        if (genreRepository.existsByName(genre.getName())) {
+            throw new DuplicateMovieException("Жанр с таким названием уже существует");
+        }
+        return genreRepository.save(genre);
+    }
+
     public void deleteGenre(Long id) {
         if(!genreRepository.existsById(id)) {
             throw new GenreNotFoundException(id);

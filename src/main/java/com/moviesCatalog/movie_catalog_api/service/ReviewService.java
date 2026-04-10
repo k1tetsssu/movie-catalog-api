@@ -2,18 +2,16 @@ package com.moviesCatalog.movie_catalog_api.service;
 
 import com.moviesCatalog.movie_catalog_api.model.Review;
 import com.moviesCatalog.movie_catalog_api.repository.ReviewRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Service
 public class ReviewService {
-
+//s
     private final ReviewRepository reviewRepository;
-
-    public ReviewService(ReviewRepository reviewRepository) {
-        this.reviewRepository = reviewRepository;
-    }
 
     // Получить все отзывы
     public List<Review> getAllReviews() {
