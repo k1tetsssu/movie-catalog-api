@@ -68,7 +68,7 @@ public class ActorService {
             throw new InvalidActorDataException("Имя актёра не должно быть пустым");
         }
 
-        if (actor.getBirthYear() == null || actor.getBirthYear() < 1850 || actor.getBirthYear() > 2100) {
+        if (actor.getBirthYear() == null || actor.getBirthYear() < 1850 || actor.getBirthYear() > 2026) {
             throw new InvalidActorDataException("Некорректный год рождения актёра");
         }
     }
