@@ -66,6 +66,38 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
+    public Movie patchMovie(Long id, Movie updatedMovie) {
+
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new MovieNotFoundException(id));
+
+        // Обновляем только если НЕ null
+        if (updatedMovie.getTitle() != null) {
+            movie.setTitle(updatedMovie.getTitle());
+        }
+
+        if (updatedMovie.getReleaseYear() != null) {
+            movie.setReleaseYear(updatedMovie.getReleaseYear());
+        }
+
+        if (updatedMovie.getRating() != null) {
+            movie.setRating(updatedMovie.getRating());
+        }
+
+        if (movieRepository.existsByTitle(movie.getTitle())) {
+            throw new DuplicateMovieException("Фильм с таким названием уже существует");
+        }
+
+        if (movie.getRating() < 0 || movie.getRating() > 10) {
+            throw new InvalidMovieDataException("Рейтинг должен быть от 0 до 10");
+        }
+        if (movie.getReleaseYear() < 1900) {
+            throw new InvalidMovieDataException("Год выпуска некорректен");
+        }
+
+        return movieRepository.save(movie);
+    }
+
     public void deleteMovie(Long id) {
         if(!movieRepository.existsById(id)) {
             throw new MovieNotFoundException(id);

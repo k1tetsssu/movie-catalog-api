@@ -1,8 +1,11 @@
 package com.moviesCatalog.movie_catalog_api.exception;
 
+// Genre import
 import com.moviesCatalog.movie_catalog_api.exception.GenreException.DuplicateGenreException;
 import com.moviesCatalog.movie_catalog_api.exception.GenreException.GenreNotFoundException;
 import com.moviesCatalog.movie_catalog_api.exception.GenreException.InvalidGenreDataException;
+
+// Movie import
 import com.moviesCatalog.movie_catalog_api.exception.MovieException.DuplicateMovieException;
 import com.moviesCatalog.movie_catalog_api.exception.MovieException.InvalidMovieDataException;
 import com.moviesCatalog.movie_catalog_api.exception.MovieException.MovieNotFoundException;
