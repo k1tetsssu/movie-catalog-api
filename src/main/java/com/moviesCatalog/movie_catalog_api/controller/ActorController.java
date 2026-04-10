@@ -2,6 +2,8 @@ package com.moviesCatalog.movie_catalog_api.controller;
 
 import com.moviesCatalog.movie_catalog_api.model.Actor;
 import com.moviesCatalog.movie_catalog_api.service.ActorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,28 +19,28 @@ public class ActorController {
     }
 
     @GetMapping
-    public List<Actor> getAllActors() {
-        return actorService.getAllActors();
+    public ResponseEntity<List<Actor>> getAllActors() {
+        return ResponseEntity.ok(actorService.getAllActors());
     }
 
     @GetMapping("/{id}")
-    public Actor getActorById(@PathVariable Long id) {
-        return actorService.getActorById(id);
+    public ResponseEntity<Actor> getActorById(@PathVariable Long id) {
+        return ResponseEntity.ok(actorService.getActorById(id));
     }
 
     @PostMapping
-    public Actor createActor(@RequestBody Actor actor) {
-        return actorService.saveActor(actor);
+    public ResponseEntity<Actor> createActor(@RequestBody Actor actor) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(actorService.saveActor(actor));
     }
 
     @PutMapping("/{id}")
-    public Actor updateActor(@PathVariable Long id, @RequestBody Actor actor) {
-        return actorService.updateActor(id, actor);
+    public ResponseEntity<Actor> updateActor(@PathVariable Long id, @RequestBody Actor actor) {
+        return ResponseEntity.ok(actorService.updateActor(id, actor));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteActor(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteActor(@PathVariable Long id) {
         actorService.deleteActor(id);
+        return ResponseEntity.noContent().build();
     }
 }
-

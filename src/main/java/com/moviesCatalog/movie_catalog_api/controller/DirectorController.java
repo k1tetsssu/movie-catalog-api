@@ -2,6 +2,8 @@ package com.moviesCatalog.movie_catalog_api.controller;
 
 import com.moviesCatalog.movie_catalog_api.model.Director;
 import com.moviesCatalog.movie_catalog_api.service.DirectorService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +19,28 @@ public class DirectorController {
     }
 
     @GetMapping
-    public List<Director> getAllDirectors() {
-        return directorService.getAllDirectors();
+    public ResponseEntity<List<Director>> getAllDirectors() {
+        return ResponseEntity.ok(directorService.getAllDirectors());
     }
 
     @GetMapping("/{id}")
-    public Director getDirectorById(@PathVariable Long id) {
-        return directorService.getDirectorById(id);
+    public ResponseEntity<Director> getDirectorById(@PathVariable Long id) {
+        return ResponseEntity.ok(directorService.getDirectorById(id));
     }
 
     @PostMapping
-    public Director createDirector(@RequestBody Director director) {
-        return directorService.saveDirector(director);
+    public ResponseEntity<Director> createDirector(@RequestBody Director director) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(directorService.saveDirector(director));
     }
 
     @PutMapping("/{id}")
-    public Director updateDirector(@PathVariable Long id, @RequestBody Director director) {
-        return directorService.updateDirector(id, director);
+    public ResponseEntity<Director> updateDirector(@PathVariable Long id, @RequestBody Director director) {
+        return ResponseEntity.ok(directorService.updateDirector(id, director));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDirector(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteDirector(@PathVariable Long id) {
         directorService.deleteDirector(id);
+        return ResponseEntity.noContent().build();
     }
 }
