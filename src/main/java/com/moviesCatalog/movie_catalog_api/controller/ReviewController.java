@@ -2,20 +2,17 @@ package com.moviesCatalog.movie_catalog_api.controller;
 
 import com.moviesCatalog.movie_catalog_api.model.Review;
 import com.moviesCatalog.movie_catalog_api.service.ReviewService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@AllArgsConstructor
 @RestController
 @RequestMapping("/reviews")
 
 public class ReviewController {
 
     private final ReviewService reviewService;
-
-    public ReviewController(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
 
     // Получить все отзывы
     @GetMapping

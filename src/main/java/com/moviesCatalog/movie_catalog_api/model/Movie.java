@@ -8,10 +8,10 @@ import java.util.List;
 
 @Entity // Этот класс является сущностью базы данных
 @Table(name = "movies")
-@Data //
+@Data // геттеры/сеттеры и методы toString, equals, hashCode
 @NoArgsConstructor //Создает пустой конструктор
 @AllArgsConstructor // Создает конструктор со всеми параметрами:
-@Builder // Позволяет удобно создавать объект
+@Builder // Позволяет удобно создавать объект(цепочно)
 public class Movie {
 
     @Id
