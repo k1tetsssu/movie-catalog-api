@@ -16,10 +16,16 @@ import org.springframework.web.bind.annotation.*;
 import com.moviesCatalog.movie_catalog_api.exception.ActorException.ActorNotFoundException;
 import com.moviesCatalog.movie_catalog_api.exception.ActorException.InvalidActorDataException;
 import com.moviesCatalog.movie_catalog_api.exception.ActorException.DuplicateActorException;
+
 // Director
 import com.moviesCatalog.movie_catalog_api.exception.DirectorException.DirectorNotFoundException;
 import com.moviesCatalog.movie_catalog_api.exception.DirectorException.InvalidDirectorDataException;
 import com.moviesCatalog.movie_catalog_api.exception.DirectorException.DuplicateDirectorException;
+
+// Review
+import com.moviesCatalog.movie_catalog_api.exception.ReviewException.ReviewNotFoundException;
+import com.moviesCatalog.movie_catalog_api.exception.ReviewException.InvalidReviewDataException;
+import com.moviesCatalog.movie_catalog_api.exception.ReviewException.DuplicateReviewException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -152,6 +158,37 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateDirectorException.class)
     public ResponseEntity<ErrorResponse> handleDuplicateDirector(DuplicateDirectorException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                409,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(409).body(error);
+    }
+
+    // Review
+    @ExceptionHandler(ReviewNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleReviewNotFound(ReviewNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                404,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(404).body(error);
+    }
+
+    @ExceptionHandler(InvalidReviewDataException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidReviewData(InvalidReviewDataException ex) {
+        ErrorResponse error = new ErrorResponse(
+                ex.getMessage(),
+                400,
+                java.time.LocalDateTime.now().toString()
+        );
+        return ResponseEntity.status(400).body(error);
+    }
+
+    @ExceptionHandler(DuplicateReviewException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateReview(DuplicateReviewException ex) {
         ErrorResponse error = new ErrorResponse(
                 ex.getMessage(),
                 409,
